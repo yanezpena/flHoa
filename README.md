@@ -143,3 +143,61 @@ For a physical device, set `EXPO_PUBLIC_API_URL` in `apps/mobile/.env` to your m
 ├── data/             # Docker Compose for Postgres
 └── pnpm-workspace.yaml
 ```
+
+```mermaid
+graph TD
+subgraph "Client Layer (Flutter)"
+A[Mobile/Web App] --> B{Auth Middleware}
+end
+
+    subgraph "Security & Identity (Supabase Auth)"
+        B -->|MFA Required| C[JWT / Session Management]
+        C -->|Includes association_id| D[API Gateway]
+    end
+
+    subgraph "Application Logic (Serverless / Edge)"
+        D --> E[Compliance Engine]
+        E -->|Check 30-day clock| F[Statutory Ticker]
+        D --> G[Privacy Engine]
+        G -->|Trigger Redaction| H[Nutrient AI API]
+    end
+
+    subgraph "Data Layer (PostgreSQL)"
+        F --> I[(Relational DB)]
+        I -->|Enforce RLS| J[Tenant Isolation: Association ID]
+        J --> K[Official Records Table]
+        J --> L[SIRS/Safety Table]
+        J --> M[Audit Logs]
+    end
+
+    subgraph "Storage Layer (AWS S3)"
+        K --> N[Encrypted S3 Buckets]
+        N -->|Public| O[Notice Agendas]
+        N -->|Private| P[Verified Owner Portal]
+        H -.->|Scrubbed PDF| P
+    end
+
+    %% Styles
+    style J fill:#f9f,stroke:#333,stroke-width:2px
+    style F fill:#ff9,stroke:#333,stroke-width:2px
+    style H fill:#bbf,stroke:#333,stroke-width:2px
+```
+
+```mermaid
+graph LR
+    Start((App Launch)) --> Login[MFA Login]
+    Login --> Role{User Role?}
+
+    Role -->|Board/Admin| AdminDash[Compliance Dashboard]
+    Role -->|Owner| OwnerDash[Owner Home]
+
+    AdminDash --> Upload[Smart Upload Wizard]
+    AdminDash --> Vault[The Statutory Vault]
+
+    OwnerDash --> Search[OCR Global Search]
+    OwnerDash --> Safety[Structural Health View]
+    OwnerDash --> Vote[Electronic Ballot]
+
+    Vault --> PDF[Secure PDF Viewer]
+``
+```

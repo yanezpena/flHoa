@@ -5,3 +5,14 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface LoginDto {
+  email: string;
+  password: string;
+}
+
+export interface RegisterDto {
+  email: string;
+  password: string;
+  name?: string;
+}
