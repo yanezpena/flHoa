@@ -131,6 +131,7 @@ For a physical device, set `EXPO_PUBLIC_API_URL` in `apps/mobile/.env` to your m
 | `pnpm build`      | Build shared + API    |
 | `pnpm db:migrate` | Run Prisma migrations |
 | `pnpm db:studio`  | Open Prisma Studio    |
+| `pnpm clean`      | Remove build/cache dirs (dist, .expo, coverage, etc.) |
 
 ## Project structure
 

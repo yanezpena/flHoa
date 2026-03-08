@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "clean": "rm -rf apps/api/dist apps/api/coverage packages/shared/dist apps/mobile/.expo apps/mobile/dist apps/mobile/web-build",
     "build": "pnpm --filter shared build && pnpm --filter api build",
     "api": "pnpm --filter shared build && pnpm --filter api dev",
     "mobile": "pnpm --filter shared build && pnpm --filter mobile start",
